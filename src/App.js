@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Input from "./components/Input";
+import Card from "./components/Card";
 
 function App() {
+  const [allTasks, setAllTasks] = useState([]);
+
+  function addTask(taskData) {
+    setAllTasks([...allTasks, taskData]);
+  }
+
+  function deleteHandler(id) {
+    setAllTasks(allTasks.filter((task) => task.id !== id));
+  }
+
+  function completeHandler(id) {
+    setAllTasks(
+      allTasks.map((task) =>
+        task.id === id ? { ...task, completed: true } : task
+      )
+    );
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input addTask={addTask} />
+      {allTasks.map((task) => {
+        return task.completed === false ? (
+          <div key={task.id}>
+            <Card
+              task={task}
+              deleteHandler={() => deleteHandler(task.id)}
+              completeHandler={() => completeHandler(task.id)}
+            />
+          </div>
+        ) : (
+          ""
+        );
+      })}
     </div>
   );
 }
