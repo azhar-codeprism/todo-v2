@@ -1,10 +1,10 @@
 import { IconButton, HStack, Spacer, Text } from "@chakra-ui/react";
-import { AiOutlineDelete, AiOutlineCheckCircle } from "react-icons/ai";
-
-function Card({ task, deleteHandler, completeHandler }) {
+import { AiOutlineDelete, AiFillCheckCircle } from "react-icons/ai";
+function DeactivatedCard({ title, handleDel }) {
   return (
     <HStack
-      textColor="#b22222"
+      textColor="#C53030"
+      style={{ filter: "brightness(0.75)" }}
       background="white"
       m="1"
       fontWeight="light"
@@ -13,30 +13,30 @@ function Card({ task, deleteHandler, completeHandler }) {
       borderBottomLeftRadius="sm"
       borderTopLeftRadius="lg"
       borderBottomRightRadius="lg"
-      boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+      boxShadow="lg"
       fontFamily="Nunito, sans-serif"
     >
-      <Text> {task.title} </Text>
+      <Text> {title} </Text>
       <Spacer />
       <IconButton
-        icon={<AiOutlineDelete />}
         color="#718096"
+        onClick={handleDel}
         size="md"
-        variant="ghost"
         isRound="true"
-        onClick={deleteHandler}
+        variant="ghost"
+        icon={<AiOutlineDelete />}
         backgroundColor="white"
       ></IconButton>
       <IconButton
-        colorScheme="green"
+        color="teal"
+        disabled="true"
         size="md"
         isRound="true"
-        variant="ghost"
-        icon={<AiOutlineCheckCircle />}
-        onClick={completeHandler}
+        variant="solid"
+        icon={<AiFillCheckCircle />}
         backgroundColor="white"
       ></IconButton>
     </HStack>
   );
 }
-export default Card;
+export default DeactivatedCard;
